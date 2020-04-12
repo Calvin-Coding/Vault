@@ -42,19 +42,24 @@ public class Vault extends JFrame {
 				// Getting Username and Password:
 				pw = pw_input.getText();
 				un = un_input.getText();
-				// Making the String that will be saved...
-				String writing = un + "," + pw;
 				// Printing (Debug code) This will soon be deleted.
 				System.out.println(pw + ", " + un);
 				// This is the name for the stored file.
 				String name = JOptionPane.showInputDialog("Enter Account Name");
+				String codess = JOptionPane.showInputDialog("Enter Account Code...");
+				int codes = Integer.parseInt(codess);
+
+				Encode encode1 = new Encode(pw, un, codes);
+
+				// String that will be saved...
+				String ends = encode1.end;
 
 				try {
 					// Code for saving the file. Saved in a folder in my desktop...
 					BufferedWriter writer = new BufferedWriter(
 							new FileWriter("C:\\Users\\calvi\\OneDrive\\Desktop\\Vault\\" + name + ".csv"));
 					// Added data to file.
-					writer.write(writing);
+					writer.write(ends);
 					// Closing writer...
 					writer.close();
 					// IOExceptions...
