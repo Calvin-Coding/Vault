@@ -39,17 +39,25 @@ public class Vault extends JFrame {
 		// Adding Action Listener to the Submit Button(14, 28, 32)
 		Submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Getting Username and Password:
 				pw = pw_input.getText();
 				un = un_input.getText();
+				// Making the String that will be saved...
 				String writing = un + "," + pw;
+				// Printing (Debug code) This will soon be deleted.
 				System.out.println(pw + ", " + un);
+				// This is the name for the stored file.
 				String name = JOptionPane.showInputDialog("Enter Account Name");
 
 				try {
+					// Code for saving the file. Saved in a folder in my desktop...
 					BufferedWriter writer = new BufferedWriter(
 							new FileWriter("C:\\Users\\calvi\\OneDrive\\Desktop\\Vault\\" + name + ".csv"));
+					// Added data to file.
 					writer.write(writing);
+					// Closing writer...
 					writer.close();
+					// IOExceptions...
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null, e1);
 				}
