@@ -23,7 +23,7 @@ public class Encode {
 
 			convert += code;
 			// Changing char int to string for storing...
-			String con = Integer.toString(convert);
+			// String con = Integer.toString(convert);
 
 			if (x == 0) {
 				end = end + convert;
@@ -37,7 +37,7 @@ public class Encode {
 
 			int convert = pw_char[x];
 			convert += code;
-			String con = Integer.toString(convert);
+			// String con = Integer.toString(convert);
 
 			if (x == 0) {
 				end = end + "," + convert;

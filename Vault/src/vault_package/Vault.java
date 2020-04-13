@@ -4,8 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 //Imports. Here I import all Java Swing Elements...
 import javax.swing.JButton;
@@ -17,7 +20,7 @@ import javax.swing.JTextField;
 public class Vault extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// Variables:
-	private JButton Submit;
+	private JButton Submit, open;
 	private JTextField un_input, pw_input;
 	private String pw, un;
 
@@ -32,10 +35,12 @@ public class Vault extends JFrame {
 		un_input = new JTextField("Username");
 		pw_input = new JTextField("Password");
 		Submit = new JButton("Submit");
+		open = new JButton("Open");
 		// Add elements to JFrame...
 		add(un_input, BorderLayout.NORTH);
-		add(pw_input, BorderLayout.CENTER);
-		add(Submit, BorderLayout.SOUTH);
+		add(pw_input, BorderLayout.SOUTH);
+		add(Submit, BorderLayout.WEST);
+		add(open, BorderLayout.EAST);
 		// Adding Action Listener to the Submit Button(14, 28, 32)
 		Submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -66,6 +71,34 @@ public class Vault extends JFrame {
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null, e1);
 				}
+			}
+
+		});
+		open.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Getting Account name...
+				String name = JOptionPane.showInputDialog("Enter Account Name...");
+				// Getting Code to Decode...
+				String codestr = JOptionPane.showInputDialog("Enter Account Code...");
+				int code = Integer.parseInt(codestr);
+				File myFile = new File("C:\\Users\\calvi\\OneDrive\\Desktop\\Vault\\" + name + ".csv");
+				try {
+					// Reading file...
+					Scanner scanned = new Scanner(myFile);
+					String data = scanned.nextLine();
+					scanned.close();
+					// Using Decode meathod to decode the data...
+					Decode dec = new Decode(data, code);
+					// Replacing null in the passwords...
+					String passwords = dec.password.replace("null", "");
+					String usernames = dec.username.replace("null", "");
+					// Showing Data
+					JOptionPane.showMessageDialog(null,
+							"Your Username us: " + usernames + "\n" + "Your Password is: " + passwords);
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+
 			}
 		});
 	}
