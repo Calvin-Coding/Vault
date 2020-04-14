@@ -27,7 +27,6 @@ public class Vault extends JFrame {
 	public Vault() {
 		// Settings
 		super("Vault - Version 1.0");
-		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 800);
 		setLayout(new BorderLayout());
@@ -41,6 +40,7 @@ public class Vault extends JFrame {
 		add(pw_input, BorderLayout.SOUTH);
 		add(Submit, BorderLayout.WEST);
 		add(open, BorderLayout.EAST);
+		setVisible(true);
 		// Adding Action Listener to the Submit Button(14, 28, 32)
 		Submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -62,6 +62,7 @@ public class Vault extends JFrame {
 				try {
 					// Code for saving the file. Saved in a folder in my desktop...
 					BufferedWriter writer = new BufferedWriter(
+							// Folder config...
 							new FileWriter("C:\\Users\\calvi\\OneDrive\\Desktop\\Vault\\" + name + ".csv"));
 					// Added data to file.
 					writer.write(ends);
@@ -81,13 +82,14 @@ public class Vault extends JFrame {
 				// Getting Code to Decode...
 				String codestr = JOptionPane.showInputDialog("Enter Account Code...");
 				int code = Integer.parseInt(codestr);
+				// Folder config...
 				File myFile = new File("C:\\Users\\calvi\\OneDrive\\Desktop\\Vault\\" + name + ".csv");
 				try {
 					// Reading file...
 					Scanner scanned = new Scanner(myFile);
 					String data = scanned.nextLine();
 					scanned.close();
-					// Using Decode meathod to decode the data...
+					// Using Decode method to decode the data...
 					Decode dec = new Decode(data, code);
 					// Replacing null in the passwords...
 					String passwords = dec.password.replace("null", "");
